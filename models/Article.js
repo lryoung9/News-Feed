@@ -6,17 +6,24 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new UserSchema object
 // This is similar to a Sequelize model
 var ArticleSchema = new Schema({
-  // `title` is required and of type String
   title: {
     type: String,
     required: true
   },
-  // `link` is required and of type String
+  summary: {
+    type: String,
+    required: true
+  },
   link: {
     type: String,
     required: true
   },
-  // `note` is an object that stores a Note id
+  image: {
+    type: String,
+    // Ridiculous Regex to check for url format
+    // I feel bad for the poor bastard that had to figure this one out
+    match: [/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, "Not a valid image link."]
+  },
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note
   note: {
